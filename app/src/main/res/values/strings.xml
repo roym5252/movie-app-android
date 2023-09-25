@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">Movie App</string>
+
+    <!--Common-->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <!--Login screen-->
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login">Login</string>
+    <string name="registration_option">Don\'t have an account? <b>Sign Up Now</b></string>
+
+    <!--SignUp screen-->
+    <string name="sign_up">Sign Up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_password">Confirm Password</string>
+
+    <!--Movie listing screen-->
+    <string name="warning_unable_to_load">Unable to load. Tap to retry</string>
+    <string name="verified_title">"Verified!"</string>
+    <string name="verified_desc">"Enjoy the movie app!"</string>
+    <string name="year">Year: </string>
+
+    <!--Warnings and Messages-->
+
+    <string name="email_empty_title">"Email is empty!"</string>
+    <string name="email_empty_desc">"Enter a valid email address."</string>
+
+    <string name="email_invalid_title">"Email is invalid!"</string>
+    <string name="email_invalid_desc">"Enter a valid email address."</string>
+
+    <string name="password_empty_title">"Password is empty!"</string>
+    <string name="password_empty_desc">"Enter your password."</string>
+
+    <string name="password_invalid_title">"Password is invalid!"</string>
+    <string name="password_invalid_desc">"Enter your password."</string>
+
+    <string name="password_mismatch_title">"Password mismatch!"</string>
+    <string name="password_mismatch_desc">"Mismatch between password and confirm password."</string>
+
+    <string name="confirm_password_empty_title">"Confirm Password is empty!"</string>
+    <string name="confirm_password_empty_desc">"Confirm your password."</string>
+
+    <string name="confirm_password_invalid_title">"Confirm Password is invalid!"</string>
+    <string name="confirm_password_invalid_desc">"Enter a valid password confirmation."</string>
+
+    <string name="first_name_empty_title">"First name is empty!"</string>
+    <string name="first_name_empty_desc">"Enter a valid first name."</string>
+
+    <string name="last_name_empty_title">"Last name is empty!"</string>
+    <string name="last_name_empty_desc">"Enter a valid last name."</string>
+
+    <string name="not_implemented_title">"Not implemented!"</string>
+    <string name="not_implemented_desc">"This feature is not implemented."</string>
+
+    <string name="no_internet_title">"No internet!"</string>
+    <string name="no_internet_desc">"Make sure you are connected and try again."</string>
+
+    <string name="account_not_found">"Account not found!"</string>
+    <string name="account_not_found_desc">"Account associated with this email is not found."</string>
+
+    <string name="user_incorrect_password">"Incorrect Password!"</string>
+    <string name="user_incorrect_password_desc">"Password is wrong. Enter correct password and try again."</string>
+
+    <string name="account_already_exists">"Account Exists!"</string>
+    <string name="account_already_exists_desc">"An account is already registered with this email."</string>
+
+</resources>
