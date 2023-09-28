@@ -3,7 +3,7 @@ package com.movieapp.core.model
 import com.movieapp.core.data.model.RemoteMovieSearchResult
 
 data class MovieSearchResult(
-    val remoteMovies: List<Movie>,
+    val movies: List<Movie>,
     val totalResults: Int
 ) {
     companion object {

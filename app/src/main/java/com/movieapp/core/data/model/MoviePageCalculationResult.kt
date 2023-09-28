@@ -1,4 +1,3 @@
 package com.movieapp.core.data.model
 
-class MoviePageCalculationResult {
-}
+data class MoviePageCalculationResult(val year: Int,val totalNumberOfPages:Int,val reachedEndOfResults:Boolean)
