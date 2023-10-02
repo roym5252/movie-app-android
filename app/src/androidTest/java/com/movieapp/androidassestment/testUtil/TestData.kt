@@ -1,4 +1,4 @@
-package com.frog.androidassestment.testUtil
+package com.movieapp.androidassestment.testUtil
 
 val emailAddressValidationTestData:List<Array<Any>> = listOf(
     arrayOf("john@test.com", true),

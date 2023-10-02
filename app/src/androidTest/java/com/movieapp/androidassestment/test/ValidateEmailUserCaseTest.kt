@@ -1,6 +1,6 @@
-package com.frog.androidassestment.test
+package com.movieapp.androidassestment.test
 
-import com.frog.androidassestment.testUtil.emailAddressValidationTestData
+import com.movieapp.androidassestment.testUtil.emailAddressValidationTestData
 import com.movieapp.core.data.validator.impl.EmailValidator
 import com.movieapp.core.domain.ValidateEmailUseCase
 import com.movieapp.core.util.TaskResult
