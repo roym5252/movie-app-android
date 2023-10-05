@@ -3,11 +3,11 @@ package com.movieapp.feature_movielisting.ui
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.movieapp.core.domain.GetMoviesUseCase
+import com.movieapp.core.domain.ProcessMovieDataUseCase
 import com.movieapp.core.model.Movie
-import com.movieapp.core.util.PrefUtil
-import java.util.Calendar
+import java.lang.NullPointerException
 
-class MovieDataSource(private val getMoviesUseCase: GetMoviesUseCase,private val prefUtil: PrefUtil) : PagingSource<Int, Movie>() {
+class MovieDataSource(private val getMoviesUseCase: GetMoviesUseCase, private val processMovieDataUseCase: ProcessMovieDataUseCase) : PagingSource<Int, Movie>() {
 
     //Setting minimum year
     private var year = 2000
@@ -22,42 +22,34 @@ class MovieDataSource(private val getMoviesUseCase: GetMoviesUseCase,private val
          *  Step 4: Once the year is current year and all the pages are fetched, then null is passed to indicate that no more API calls are required.
          */
         return try {
-            val nextPageNumber = params.key ?: 1
-            val response = getMoviesUseCase(title = "time", page = nextPageNumber, year = year)
 
-            val totalNumberOfResults = response!!.totalResults
-            var totalNumberOfFullPages = totalNumberOfResults / 10
+            val pageNumber = params.key ?: 1
+            val response = getMoviesUseCase(title = "time", page = pageNumber, year = year)
+            val calculationResult = processMovieDataUseCase(year,pageNumber,response)
+            val reachedEndOfResults = calculationResult.reachedEndOfResults
+            val totalNumberOfFullPages = calculationResult.totalNumberOfPages
 
-            if (totalNumberOfResults % 10 != 0) {
-                totalNumberOfFullPages += 1
-            }
+            year = calculationResult.year
 
-            var reachedEndOfResults = false
+            response?.let {
 
-            if (nextPageNumber >= totalNumberOfFullPages) {
+                LoadResult.Page(
+                    data = it.movies,
+                    prevKey = if (pageNumber > 0) pageNumber - 1 else null,
+                    nextKey = if (pageNumber < totalNumberOfFullPages) pageNumber + 1 else {
 
-                val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-
-                if (currentYear > year) {
-                    year++
-                } else {
-                    reachedEndOfResults = true
-                }
-
-            }
-
-            LoadResult.Page(
-                data = response.remoteMovies,
-                prevKey = if (nextPageNumber > 0) nextPageNumber - 1 else null,
-                nextKey = if (nextPageNumber < totalNumberOfFullPages) nextPageNumber + 1 else {
-
-                    if (reachedEndOfResults) {
-                        null
-                    } else {
-                        1
+                        if (reachedEndOfResults) {
+                            null
+                        } else {
+                            1
+                        }
                     }
-                }
-            )
+                )
+
+            }?: kotlin.run {
+                LoadResult.Error(NullPointerException())
+            }
+
         } catch (e: Exception) {
             LoadResult.Error(e)
         }

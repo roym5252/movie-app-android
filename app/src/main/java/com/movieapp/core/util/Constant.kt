@@ -12,5 +12,4 @@ enum class ErrorType {
 }
 
 const val PREF_LOGIN_STATUS ="login_status"
-const val API_KEY ="9cf88a8f"
 const val BASE_URL ="https://www.omdbapi.com/"

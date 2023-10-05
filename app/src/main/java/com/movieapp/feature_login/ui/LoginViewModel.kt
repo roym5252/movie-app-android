@@ -9,6 +9,8 @@ import com.movieapp.core.domain.ValidateEmailUseCase
 import com.movieapp.core.domain.ValidatePasswordUseCase
 import com.movieapp.core.util.CommonUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -32,9 +34,9 @@ class LoginViewModel @Inject constructor(
     /**For handling user login.**/
     fun login(email: String, password: String) {
 
-        _loginUiState.value = LoginUiState(true)
-
         viewModelScope.launch {
+
+            _loginUiState.value = LoginUiState(true)
 
             if (isEmailValidationSuccess(email) &&
                 isPasswordValidationSuccess(password)
@@ -58,7 +60,6 @@ class LoginViewModel @Inject constructor(
 
 
             }
-
         }
 
     }
@@ -83,6 +84,9 @@ class LoginViewModel @Inject constructor(
                 return false
             }
 
+            else ->{
+                return false
+            }
         }
     }
 

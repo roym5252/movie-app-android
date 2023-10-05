@@ -9,6 +9,7 @@ import androidx.paging.cachedIn
 import com.movieapp.core.data.datasource.remote.APIInterface
 import com.movieapp.core.data.repository.UserRepository
 import com.movieapp.core.domain.GetMoviesUseCase
+import com.movieapp.core.domain.ProcessMovieDataUseCase
 import com.movieapp.core.util.PrefUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,25 +20,24 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieListingViewModel @Inject constructor(
     application: Application,
-    private val apiInterface: APIInterface,
     private val userRepository: UserRepository,
     private val getMoviesUseCase: GetMoviesUseCase,
-    private val prefUtil: PrefUtil
+    private val processMovieDataUseCase: ProcessMovieDataUseCase
 ) : AndroidViewModel(application) {
 
     private val _movieListingUiState = MutableStateFlow(MovieListingUiState())
-    val movieListingUiState:StateFlow<MovieListingUiState> = _movieListingUiState
+    val movieListingUiState: StateFlow<MovieListingUiState> = _movieListingUiState
 
-    val movies =
-        Pager(config = PagingConfig(pageSize = 10), pagingSourceFactory = {
-            MovieDataSource(getMoviesUseCase,prefUtil)
-        }).flow.cachedIn(viewModelScope)
+    val movies = Pager(config = PagingConfig(pageSize = 10), pagingSourceFactory = {
+        MovieDataSource(getMoviesUseCase, processMovieDataUseCase)
+    }).flow.cachedIn(viewModelScope)
 
     fun logout() {
 
         viewModelScope.launch {
             userRepository.logout()
-            _movieListingUiState.value = MovieListingUiState(isLoading = false, userLoggedOut = true)
+            _movieListingUiState.value =
+                MovieListingUiState(isLoading = false, userLoggedOut = true)
         }
     }
 
