@@ -16,3 +16,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Movie_Listing_App"
 include ':app'
+include ':core'
+include ':feature-login'
+include ':feature-signup'
+include ':feature-movielisting'
