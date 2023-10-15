@@ -3,6 +3,7 @@ package com.movieapp.util
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.movieapp.core.util.NavigationUtil
+import com.movieapp.core.util.ext.navigateToFragment
 import com.movieapp.feature_login.ui.LoginFragment
 import com.movieapp.feature_movielisting.ui.MovieListingFragment
 import com.movieapp.feature_signup.ui.SignUpFragment

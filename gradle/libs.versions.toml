@@ -1,0 +1,85 @@
+[versions]
+
+# @keep
+compileSdk = "34"
+
+# @keep
+minSdk = "24"
+
+# @keep
+targetSdk = "33"
+
+activityCompose = "1.8.0"
+androidGradlePlugin = "8.0.2"
+androidSpinkit = "1.4.0"
+biometric = "1.2.0-alpha05"
+constraintlayout = "2.2.0-alpha13"
+converterGson = "2.3.0"
+cookiebar2 = "1.1.5"
+coreSplashscreen = "1.0.1"
+espressoCore = "3.5.1"
+glide = "4.15.1"
+hiltVersion = "2.44"
+junit4 = "4.13.2"
+junitJupiterParams = "5.1.0"
+junitVersion = "1.1.5"
+kotlin = "1.8.10"
+hilt="2.44"
+androidxCore = "1.12.0"
+kotlinxCoroutinesAndroid = "1.7.3"
+leakcanaryAndroid = "2.12"
+lifecycleRuntimeKtx = "2.6.2"
+loggingInterceptor = "4.9.0"
+material = "1.10.0"
+mockitoKotlin = "5.1.0"
+mockwebserver = "4.11.0"
+pagingRuntime = "3.2.1"
+picasso2Okhttp3Downloader = "1.1.0"
+retrofit = "2.9.0"
+room = "2.5.2"
+securityCrypto = "1.0.0"
+spotsDialog = "0.4"
+ksp = "1.8.10-1.0.9"
+
+[libraries]
+kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
+android-spinKit = { module = "com.github.ybq:Android-SpinKit", version.ref = "androidSpinkit" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "pagingRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+cookiebar2 = { module = "org.aviran.cookiebar2:cookiebar2", version.ref = "cookiebar2" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
+junit4 = { module = "junit:junit", version.ref = "junit4" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiterParams" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesAndroid" }
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockwebserver" }
+picasso2-okhttp3-downloader = { module = "com.jakewharton.picasso:picasso2-okhttp3-downloader", version.ref = "picasso2Okhttp3Downloader" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+spots-dialog = { module = "com.github.d-max:spots-dialog", version.ref = "spotsDialog" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
