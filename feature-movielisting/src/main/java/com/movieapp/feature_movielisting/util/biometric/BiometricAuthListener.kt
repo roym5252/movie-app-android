@@ -1,4 +1,4 @@
-package com.movieapp.core.util.biometric
+package com.movieapp.feature_movielisting.util.biometric
 
 import androidx.biometric.BiometricPrompt
 

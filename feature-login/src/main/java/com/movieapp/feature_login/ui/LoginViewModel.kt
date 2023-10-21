@@ -9,8 +9,6 @@ import com.movieapp.core.domain.ValidateEmailUseCase
 import com.movieapp.core.domain.ValidatePasswordUseCase
 import com.movieapp.core.util.CommonUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
