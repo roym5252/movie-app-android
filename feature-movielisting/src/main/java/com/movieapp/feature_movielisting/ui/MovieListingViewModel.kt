@@ -2,6 +2,8 @@ package com.movieapp.feature_movielisting.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -9,6 +11,7 @@ import androidx.paging.cachedIn
 import com.movieapp.core.data.repository.UserRepository
 import com.movieapp.core.domain.GetMoviesUseCase
 import com.movieapp.core.domain.ProcessMovieDataUseCase
+import com.movieapp.core.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,8 +26,8 @@ class MovieListingViewModel @Inject constructor(
     private val processMovieDataUseCase: ProcessMovieDataUseCase
 ) : AndroidViewModel(application) {
 
-    private val _movieListingUiState = MutableStateFlow(MovieListingUiState())
-    val movieListingUiState: StateFlow<MovieListingUiState> = _movieListingUiState
+    private val _movieListingUiState = MutableLiveData(Event(MovieListingUiState()))
+    val movieListingUiState: LiveData<Event<MovieListingUiState>> = _movieListingUiState
 
     val movies = Pager(config = PagingConfig(pageSize = 10), pagingSourceFactory = {
         MovieDataSource(getMoviesUseCase, processMovieDataUseCase)
@@ -34,8 +37,8 @@ class MovieListingViewModel @Inject constructor(
 
         viewModelScope.launch {
             userRepository.logout()
-            _movieListingUiState.value =
-                MovieListingUiState(isLoading = false, userLoggedOut = true)
+            _movieListingUiState.value =Event(
+                MovieListingUiState(isLoading = false, userLoggedOut = true))
         }
     }
 

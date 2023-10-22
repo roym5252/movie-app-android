@@ -111,31 +111,33 @@ class SignUpFragment : BaseFragment() {
 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                signUpViewModel.sigUpUiState.collect { uiState ->
+                signUpViewModel.sigUpUiState.observe(viewLifecycleOwner) { uiState ->
 
-                    if (uiState.isLoading) {
+                    val signUpUiState = uiState.getContentIfNotHandled() ?: return@observe
+
+                    if (signUpUiState.isLoading) {
                         progressDialog.show()
-                        return@collect
+                        return@observe
                     } else {
                         progressDialog.dismiss()
                     }
 
-                    if (uiState.isRegistered) {
+                    if (signUpUiState.isRegistered) {
 
                         if (!requireActivity().isFinishing && isAdded) {
                             navigationUtil.navigateToMovieListingFragment(requireActivity())
                         }
 
-                        return@collect
+                        return@observe
                     }
 
-                    if (uiState.errorSection != null) {
+                    if (signUpUiState.errorSection != null) {
 
-                        uiState.errorType?.let {
+                        signUpUiState.errorType?.let {
 
                             showWarningMessage(
                                 messageUtil,
-                                notificationUtil, uiState.errorSection, uiState.errorType
+                                notificationUtil, signUpUiState.errorSection, signUpUiState.errorType
                             )
 
                         }

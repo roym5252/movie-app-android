@@ -2,6 +2,8 @@ package com.movieapp.feature_signup.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.movieapp.core.domain.MatchPasswordUseCase
 import com.movieapp.core.domain.UserRegistrationUseCase
@@ -10,6 +12,7 @@ import com.movieapp.core.domain.ValidatePasswordUseCase
 import com.movieapp.core.domain.ValidatePersonNameUseCase
 import com.movieapp.core.util.CommonUtil
 import com.movieapp.core.util.ErrorSection
+import com.movieapp.core.util.Event
 import com.movieapp.core.util.TaskResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,8 +34,8 @@ class SignUpViewModel @Inject constructor(
     private val userRegistrationUseCase: UserRegistrationUseCase,
 ) : AndroidViewModel(application) {
 
-    private val _signUpUiState = MutableStateFlow(SignUpUiState())
-    val sigUpUiState: StateFlow<SignUpUiState> = _signUpUiState
+    private val _signUpUiState = MutableLiveData(Event(SignUpUiState()))
+    val sigUpUiState: LiveData<Event<SignUpUiState>> = _signUpUiState
 
     fun signUp(
         firstName: String,
@@ -42,7 +45,7 @@ class SignUpViewModel @Inject constructor(
         confirmPassword: String
     ) {
 
-        _signUpUiState.value = SignUpUiState(true)
+        _signUpUiState.value = Event(SignUpUiState(true))
 
         viewModelScope.launch {
 
@@ -61,11 +64,11 @@ class SignUpViewModel @Inject constructor(
                     }
 
                     is TaskResult.Error -> {
-                        _signUpUiState.value = SignUpUiState(
+                        _signUpUiState.value = Event(SignUpUiState(
                             isLoading = false,
                             errorSection = connectivityResult.errorSection,
                             errorType = connectivityResult.errorType
-                        )
+                        ))
                     }
                 }
 
@@ -86,11 +89,11 @@ class SignUpViewModel @Inject constructor(
 
             is TaskResult.Error -> {
 
-                _signUpUiState.value = SignUpUiState(
+                _signUpUiState.value = Event(SignUpUiState(
                     isLoading = false,
                     errorSection = errorSection,
                     errorType = personNameValidationResult.errorType
-                )
+                ))
 
                 return false
             }
@@ -108,11 +111,11 @@ class SignUpViewModel @Inject constructor(
 
             is TaskResult.Error -> {
 
-                _signUpUiState.value = SignUpUiState(
+                _signUpUiState.value = Event(SignUpUiState(
                     isLoading = false,
                     errorSection = emailValidationResult.errorSection,
                     errorType = emailValidationResult.errorType
-                )
+                ))
 
                 return false
             }
@@ -130,11 +133,11 @@ class SignUpViewModel @Inject constructor(
 
             is TaskResult.Error -> {
 
-                _signUpUiState.value = SignUpUiState(
+                _signUpUiState.value = Event(SignUpUiState(
                     isLoading = false,
                     errorSection = errorSection,
                     errorType = passwordValidationResult.errorType
-                )
+                ))
 
                 return false
             }
@@ -156,11 +159,11 @@ class SignUpViewModel @Inject constructor(
 
             is TaskResult.Error -> {
 
-                _signUpUiState.value = SignUpUiState(
+                _signUpUiState.value = Event(SignUpUiState(
                     isLoading = false,
                     errorSection = passwordMatchValidationSuccess.errorSection,
                     errorType = passwordMatchValidationSuccess.errorType
-                )
+                ))
 
                 return false
             }
@@ -179,15 +182,15 @@ class SignUpViewModel @Inject constructor(
         when (val loginResult = userRegistrationUseCase(firstName, lastName, email, password)) {
 
             is TaskResult.Success -> {
-                _signUpUiState.value = SignUpUiState(isLoading = false, isRegistered = true)
+                _signUpUiState.value = Event(SignUpUiState(isLoading = false, isRegistered = true))
             }
 
             is TaskResult.Error -> {
-                _signUpUiState.value = SignUpUiState(
+                _signUpUiState.value = Event(SignUpUiState(
                     isLoading = false,
                     errorSection = loginResult.errorSection,
                     errorType = loginResult.errorType
-                )
+                ))
             }
 
         }

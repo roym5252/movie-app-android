@@ -6,7 +6,7 @@ import com.movieapp.core.util.ErrorType
 import com.movieapp.core.util.TaskResult
 import javax.inject.Inject
 
-internal class EmailValidator @Inject constructor(): UserInputValidator {
+class EmailValidator @Inject constructor(): UserInputValidator {
 
     override fun validate(userInput: String): TaskResult<Boolean?> {
 
