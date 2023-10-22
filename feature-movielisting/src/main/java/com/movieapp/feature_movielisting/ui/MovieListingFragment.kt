@@ -13,15 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.movieapp.core.util.biometric.BiometricAuthListener
-import com.movieapp.core.util.biometric.BiometricUtil
 import com.movieapp.core.ui.BaseFragment
 import com.movieapp.core.util.CommonUtil
 import com.movieapp.core.util.MessageUtil
 import com.movieapp.core.util.NotificationUtil
 import com.movieapp.core.util.NavigationUtil
-import com.movieapp.feature_movielisting.R
 import com.movieapp.feature_movielisting.databinding.FragmentMovieListingBinding
+import com.movieapp.feature_movielisting.util.biometric.BiometricAuthListener
+import com.movieapp.feature_movielisting.util.biometric.BiometricUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
