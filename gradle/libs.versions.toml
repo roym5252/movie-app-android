@@ -76,6 +76,7 @@ picasso2-okhttp3-downloader = { module = "com.jakewharton.picasso:picasso2-okhtt
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 spots-dialog = { module = "com.github.d-max:spots-dialog", version.ref = "spotsDialog" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version = "2.2.0" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

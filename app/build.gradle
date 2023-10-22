@@ -67,6 +67,7 @@ dependencies {
     implementation libs.material
     implementation libs.androidx.core.splashscreen
     implementation libs.hilt.android
+    implementation libs.androidx.uiautomator
     kapt(libs.hilt.compiler)
 
     debugImplementation libs.leakcanary.android

@@ -191,15 +191,17 @@ class MovieListingFragment : BaseFragment(), BiometricAuthListener {
 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                movieListingViewModel.movieListingUiState.collect { uiState ->
+                movieListingViewModel.movieListingUiState.observe(viewLifecycleOwner) { uiState ->
 
-                    if (uiState.userLoggedOut) {
+                    val movieListingUiState = uiState.getContentIfNotHandled()?: return@observe
+
+                    if (movieListingUiState.userLoggedOut) {
 
                         if (!requireActivity().isFinishing && isAdded) {
                             navigationUtil.navigateToLoginFragment(requireActivity())
                         }
 
-                        return@collect
+                        return@observe
                     }
                 }
             }

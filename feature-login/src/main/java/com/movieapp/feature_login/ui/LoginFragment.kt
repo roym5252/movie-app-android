@@ -18,7 +18,6 @@ import com.movieapp.core.util.MessageUtil
 import com.movieapp.core.util.NotificationUtil
 import com.movieapp.core.util.TaskResult
 import com.movieapp.core.util.NavigationUtil
-import com.movieapp.feature_login.R
 import com.movieapp.feature_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dmax.dialog.SpotsDialog
@@ -96,31 +95,33 @@ class LoginFragment : BaseFragment() {
 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                loginViewModel.loginUiState.collect { uiState ->
+                loginViewModel.loginUiState.observe(viewLifecycleOwner) { uiState ->
 
-                    if (uiState.isLoading) {
+                    val loginUiState = uiState.getContentIfNotHandled() ?: return@observe
+
+                    if (loginUiState.isLoading) {
                         progressDialog.show()
-                        return@collect
+                        return@observe
                     } else {
                         progressDialog.dismiss()
                     }
 
-                    if (uiState.authenticated) {
+                    if (loginUiState.authenticated) {
 
                         if (!requireActivity().isFinishing && isAdded) {
                             navigationUtil.navigateToMovieListingFragment(requireActivity())
                         }
 
-                        return@collect
+                        return@observe
                     }
 
-                    if (uiState.errorSection != null) {
+                    if (loginUiState.errorSection != null) {
 
-                        uiState.errorType?.let {
+                        loginUiState.errorType?.let {
 
                             showWarningMessage(
                                 messageUtil,
-                                notificationUtil, uiState.errorSection, uiState.errorType
+                                notificationUtil, loginUiState.errorSection, loginUiState.errorType
                             )
 
                         }
@@ -129,6 +130,7 @@ class LoginFragment : BaseFragment() {
                 }
             }
         }
+
     }
 
     private fun handleLoginButtonClick() {
