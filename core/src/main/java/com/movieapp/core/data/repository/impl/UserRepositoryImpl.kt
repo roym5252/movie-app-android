@@ -16,7 +16,7 @@ import javax.inject.Inject
 /**
  * Default implementation of user repository interface.
  */
-internal class UserRepositoryImpl @Inject constructor(
+class UserRepositoryImpl @Inject constructor(
     private val dataSourceManager: DataSourceManager,
     private val prefUtil: PrefUtil
 ) : UserRepository {
