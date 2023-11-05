@@ -16,7 +16,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 @Module
@@ -58,7 +57,6 @@ class DataSourceModule {
             APIInterface::class.java
         )
     }
-
 
     @Provides
     fun provideDataSourceManager(database: AppDatabase): DataSourceManager {
