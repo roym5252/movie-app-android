@@ -1,6 +1,6 @@
 package com.movieapp.androidassestment.test.domain
 
-import com.google.gson.GsonBuilder
+import android.util.MalformedJsonException
 import com.movieapp.androidassestment.testutil.MainCoroutineRule
 import com.movieapp.androidassestment.testutil.testApiKey
 import com.movieapp.androidassestment.testutil.testPage
@@ -9,6 +9,7 @@ import com.movieapp.androidassestment.testutil.testYear
 import com.movieapp.androidassestment.testutil.validMovieJsonResponse
 import com.movieapp.core.data.datasource.remote.APIInterface
 import com.movieapp.core.data.model.RemoteMovieSearchResult
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -21,7 +22,7 @@ import org.junit.Test
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.lang.Exception
 
 
@@ -41,13 +42,11 @@ class GetMoviesUseCaseTest {
         mockWebServer = MockWebServer()
         mockWebServer.start()
 
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
+        val moshi = Moshi.Builder().build()
 
         apiClient = Retrofit.Builder()
             .baseUrl(mockWebServer.url("/"))
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build().create(APIInterface::class.java)
 
     }
@@ -113,7 +112,7 @@ class GetMoviesUseCaseTest {
 
         assertEquals(
             true,
-            (response is com.google.gson.stream.MalformedJsonException)
+            (response is MalformedJsonException)
         )
     }
 
