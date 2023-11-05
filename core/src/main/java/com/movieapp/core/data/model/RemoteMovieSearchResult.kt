@@ -2,20 +2,20 @@ package com.movieapp.core.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 /**
  * Note: Only for holding remote response. Should not be used outside of data layer.
  */
+@JsonClass(generateAdapter = true)
 data class RemoteMovieSearchResult(
 
-    @SerializedName("Search")
-    @Expose
+    @Json(name="Search")
     val remoteMovies: List<RemoteMovie>,
 
-    @SerializedName("totalResults")
-    @Expose
+    @Json(name="totalResults")
     val totalResults: String,
 
-    @SerializedName("Response")
-    @Expose
+    @Json(name="Response")
     val response: String)
