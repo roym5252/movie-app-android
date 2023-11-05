@@ -9,7 +9,7 @@ import javax.inject.Inject
  * Local implementation of DataSourceManager.
  * This class interacts with local database for user related records.
  */
-internal class LocalDataSourceManagerImpl @Inject constructor(private val database: AppDatabase) :
+class LocalDataSourceManagerImpl @Inject constructor(private val database: AppDatabase) :
     DataSourceManager {
 
     override fun registerUser(localUser: LocalUser) {

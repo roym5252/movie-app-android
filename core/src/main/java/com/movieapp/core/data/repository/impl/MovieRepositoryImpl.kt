@@ -14,7 +14,7 @@ import javax.inject.Inject
 /**
  * Default implementation of movie repository interface.
  */
-internal class MovieRepositoryImpl @Inject constructor(
+class MovieRepositoryImpl @Inject constructor(
     private val apiClient: APIInterface,
     private val prefUtil: PrefUtil
 ) : MovieRepository {

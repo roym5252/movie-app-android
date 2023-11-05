@@ -6,7 +6,7 @@ import com.movieapp.core.util.ErrorType
 import com.movieapp.core.util.TaskResult
 import javax.inject.Inject
 
-internal class PasswordValidator @Inject constructor(): UserInputValidator {
+class PasswordValidator @Inject constructor(): UserInputValidator {
 
     override fun validate(userInput: String): TaskResult<Boolean?> {
 
