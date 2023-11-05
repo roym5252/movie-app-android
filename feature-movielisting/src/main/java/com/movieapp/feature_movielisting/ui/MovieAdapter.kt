@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.movieapp.core.model.Movie
+import com.movieapp.feature_movielisting.R
 import com.movieapp.feature_movielisting.databinding.MovieItemListBinding
 import javax.inject.Inject
 
@@ -47,7 +48,7 @@ class MovieAdapter @Inject constructor(): PagingDataAdapter<Movie, MovieAdapter.
             binding.tvYear.text = context.resources.getString(com.movieapp.core.R.string.year)+" " + item?.year
             Glide.with(context).load(item.poster)
                 .centerCrop()
-                //.placeholder(R.mipmap.ic_launcher_round)
+                .placeholder(R.drawable.ic_launcher_round)
                 .dontAnimate()
                 .into(binding.ivMoviePoster);
         }

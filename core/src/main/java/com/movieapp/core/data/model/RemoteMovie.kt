@@ -1,7 +1,4 @@
 package com.movieapp.core.data.model
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
-import com.movieapp.core.model.User
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
