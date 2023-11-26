@@ -33,6 +33,8 @@ This structure also makes it easy to convert the project to a multi-module proje
 * Coroutines
 
 * Retrofit
+  
+* Moshi
 
 * OkHttp
 
@@ -55,3 +57,9 @@ This structure also makes it easy to convert the project to a multi-module proje
 * SQLite
 
 * AndroidX Biometric Library
+
+* Espresso
+  
+* Robolectric
+  
+* AndroidX Test
