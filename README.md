@@ -1,3 +1,6 @@
+
+![Movie App](https://github.com/roym5252/movie-app-android/assets/30793139/8363b202-220c-4730-b0ae-b2043b3815f0)
+
 # Movie App
 
 This is a sample for demonstrating the Modern Android App Architecture. The app communicates with '[www.omdbapi.com](http://www.omdbapi.com/)' for fetching all movies which has the word 'time' in the title. User registration and login operations are done locally by communicating with local database. Biometric authentication is added for additional security.
