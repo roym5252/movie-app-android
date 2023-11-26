@@ -1,10 +1,14 @@
 package com.movieapp
 
 import android.os.Bundle
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.movieapp.core.ui.BaseActivity
 import com.movieapp.core.util.NavigationUtil
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -28,12 +32,18 @@ class MainActivity : BaseActivity() {
     //For observing login status.
     private fun setLoginStatusObserver() {
 
-        mainActivityViewModel.loginStatus.observe(this) {
+        lifecycleScope.launch {
 
-            if (it) {
-                navigationUtil.navigateToMovieListingFragment(this, true)
-            } else {
-                navigationUtil.navigateToLoginFragment(this, true)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                mainActivityViewModel.uiState.collect {
+
+                    if (it) {
+                        navigationUtil.navigateToMovieListingFragment(this@MainActivity, true)
+                    } else {
+                        navigationUtil.navigateToLoginFragment(this@MainActivity, true)
+                    }
+                }
             }
         }
 

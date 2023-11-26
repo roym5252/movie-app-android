@@ -2,18 +2,16 @@ package com.movieapp.feature_login.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.movieapp.core.domain.UserLoginUseCase
 import com.movieapp.core.util.TaskResult
 import com.movieapp.core.domain.ValidateEmailUseCase
 import com.movieapp.core.domain.ValidatePasswordUseCase
 import com.movieapp.core.util.CommonUtil
-import com.movieapp.core.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,15 +27,15 @@ class LoginViewModel @Inject constructor(
     private val userLoginUseCase: UserLoginUseCase
 ) : AndroidViewModel(application) {
 
-    private val _loginUiState = MutableLiveData(Event(LoginUiState()))
-    val loginUiState: LiveData<Event<LoginUiState>> = _loginUiState
+    private val _loginUiState = MutableStateFlow(LoginUiState())
+    val loginUiState: StateFlow<LoginUiState> = _loginUiState
 
     /**For handling user login.**/
     fun login(email: String, password: String) {
 
         viewModelScope.launch {
 
-            _loginUiState.value = Event(LoginUiState(true))
+            _loginUiState.value = LoginUiState(true)
 
             if (isEmailValidationSuccess(email) &&
                 isPasswordValidationSuccess(password)
@@ -50,13 +48,11 @@ class LoginViewModel @Inject constructor(
                     }
 
                     is TaskResult.Error -> {
-                        _loginUiState.value = Event(
-                            LoginUiState(
-                                isLoading = false,
-                                authenticated = false,
-                                connectivityResult.errorSection,
-                                connectivityResult.errorType
-                            )
+                        _loginUiState.value = LoginUiState(
+                            isLoading = false,
+                            authenticated = false,
+                            connectivityResult.errorSection,
+                            connectivityResult.errorType
                         )
                     }
                 }
@@ -77,13 +73,11 @@ class LoginViewModel @Inject constructor(
 
             is TaskResult.Error -> {
 
-                _loginUiState.value = Event(
-                    LoginUiState(
-                        isLoading = false,
-                        authenticated = false,
-                        emailValidationResult.errorSection,
-                        emailValidationResult.errorType
-                    )
+                _loginUiState.value = LoginUiState(
+                    isLoading = false,
+                    authenticated = false,
+                    emailValidationResult.errorSection,
+                    emailValidationResult.errorType
                 )
 
                 return false
@@ -105,13 +99,11 @@ class LoginViewModel @Inject constructor(
 
             is TaskResult.Error -> {
 
-                _loginUiState.value = Event(
-                    LoginUiState(
-                        isLoading = false,
-                        authenticated = false,
-                        passwordValidationResult.errorSection,
-                        passwordValidationResult.errorType
-                    )
+                _loginUiState.value = LoginUiState(
+                    isLoading = false,
+                    authenticated = false,
+                    passwordValidationResult.errorSection,
+                    passwordValidationResult.errorType
                 )
 
                 return false
@@ -127,19 +119,21 @@ class LoginViewModel @Inject constructor(
         when (val loginResult = userLoginUseCase(email, password)) {
 
             is TaskResult.Success -> {
-                _loginUiState.value = Event(LoginUiState(isLoading = false, authenticated = true))
+                _loginUiState.value = LoginUiState(isLoading = false, authenticated = true)
             }
 
             is TaskResult.Error -> {
-                _loginUiState.value = Event(
-                    LoginUiState(
-                        isLoading = false,
-                        errorSection = loginResult.errorSection,
-                        errorType = loginResult.errorType
-                    )
+                _loginUiState.value =  LoginUiState(
+                    isLoading = false,
+                    errorSection = loginResult.errorSection,
+                    errorType = loginResult.errorType
                 )
             }
 
         }
+    }
+
+    fun resetErrorState(){
+        _loginUiState.update {LoginUiState(errorSection = null, errorType = null)}
     }
 }

@@ -107,7 +107,6 @@ class MovieListingFragment : BaseFragment(), BiometricAuthListener {
             //Request data and set list
             setupList()
         }
-
     }
 
     private fun setupView() {
@@ -191,9 +190,7 @@ class MovieListingFragment : BaseFragment(), BiometricAuthListener {
 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                movieListingViewModel.movieListingUiState.observe(viewLifecycleOwner) { uiState ->
-
-                    val movieListingUiState = uiState.getContentIfNotHandled()?: return@observe
+                movieListingViewModel.movieListingUiState.collect { movieListingUiState ->
 
                     if (movieListingUiState.userLoggedOut) {
 
@@ -201,7 +198,7 @@ class MovieListingFragment : BaseFragment(), BiometricAuthListener {
                             navigationUtil.navigateToLoginFragment(requireActivity())
                         }
 
-                        return@observe
+                        return@collect
                     }
                 }
             }

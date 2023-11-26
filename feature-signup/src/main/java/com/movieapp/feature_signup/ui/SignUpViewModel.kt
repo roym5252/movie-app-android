@@ -17,6 +17,7 @@ import com.movieapp.core.util.TaskResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,8 +35,8 @@ class SignUpViewModel @Inject constructor(
     private val userRegistrationUseCase: UserRegistrationUseCase,
 ) : AndroidViewModel(application) {
 
-    private val _signUpUiState = MutableLiveData(Event(SignUpUiState()))
-    val sigUpUiState: LiveData<Event<SignUpUiState>> = _signUpUiState
+    private val _signUpUiState = MutableStateFlow(SignUpUiState())
+    val sigUpUiState: StateFlow<SignUpUiState> = _signUpUiState
 
     fun signUp(
         firstName: String,
@@ -45,7 +46,7 @@ class SignUpViewModel @Inject constructor(
         confirmPassword: String
     ) {
 
-        _signUpUiState.value = Event(SignUpUiState(true))
+        _signUpUiState.value = SignUpUiState(true)
 
         viewModelScope.launch {
 
@@ -64,11 +65,11 @@ class SignUpViewModel @Inject constructor(
                     }
 
                     is TaskResult.Error -> {
-                        _signUpUiState.value = Event(SignUpUiState(
+                        _signUpUiState.value = SignUpUiState(
                             isLoading = false,
                             errorSection = connectivityResult.errorSection,
                             errorType = connectivityResult.errorType
-                        ))
+                        )
                     }
                 }
 
@@ -89,11 +90,11 @@ class SignUpViewModel @Inject constructor(
 
             is TaskResult.Error -> {
 
-                _signUpUiState.value = Event(SignUpUiState(
+                _signUpUiState.value = SignUpUiState(
                     isLoading = false,
                     errorSection = errorSection,
                     errorType = personNameValidationResult.errorType
-                ))
+                )
 
                 return false
             }
@@ -111,11 +112,11 @@ class SignUpViewModel @Inject constructor(
 
             is TaskResult.Error -> {
 
-                _signUpUiState.value = Event(SignUpUiState(
+                _signUpUiState.value = SignUpUiState(
                     isLoading = false,
                     errorSection = emailValidationResult.errorSection,
                     errorType = emailValidationResult.errorType
-                ))
+                )
 
                 return false
             }
@@ -133,11 +134,11 @@ class SignUpViewModel @Inject constructor(
 
             is TaskResult.Error -> {
 
-                _signUpUiState.value = Event(SignUpUiState(
+                _signUpUiState.value = SignUpUiState(
                     isLoading = false,
                     errorSection = errorSection,
                     errorType = passwordValidationResult.errorType
-                ))
+                )
 
                 return false
             }
@@ -159,11 +160,11 @@ class SignUpViewModel @Inject constructor(
 
             is TaskResult.Error -> {
 
-                _signUpUiState.value = Event(SignUpUiState(
+                _signUpUiState.value = SignUpUiState(
                     isLoading = false,
                     errorSection = passwordMatchValidationSuccess.errorSection,
                     errorType = passwordMatchValidationSuccess.errorType
-                ))
+                )
 
                 return false
             }
@@ -182,17 +183,21 @@ class SignUpViewModel @Inject constructor(
         when (val loginResult = userRegistrationUseCase(firstName, lastName, email, password)) {
 
             is TaskResult.Success -> {
-                _signUpUiState.value = Event(SignUpUiState(isLoading = false, isRegistered = true))
+                _signUpUiState.value = SignUpUiState(isLoading = false, isRegistered = true)
             }
 
             is TaskResult.Error -> {
-                _signUpUiState.value = Event(SignUpUiState(
+                _signUpUiState.value = SignUpUiState(
                     isLoading = false,
                     errorSection = loginResult.errorSection,
                     errorType = loginResult.errorType
-                ))
+                )
             }
 
         }
+    }
+
+    fun resetErrorState(){
+        _signUpUiState.update {SignUpUiState(errorSection = null, errorType = null)}
     }
 }

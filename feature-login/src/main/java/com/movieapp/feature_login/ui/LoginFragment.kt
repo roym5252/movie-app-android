@@ -95,13 +95,13 @@ class LoginFragment : BaseFragment() {
 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                loginViewModel.loginUiState.observe(viewLifecycleOwner) { uiState ->
-
-                    val loginUiState = uiState.getContentIfNotHandled() ?: return@observe
+                loginViewModel.loginUiState.collect { loginUiState ->
 
                     if (loginUiState.isLoading) {
+
                         progressDialog.show()
-                        return@observe
+                        return@collect
+
                     } else {
                         progressDialog.dismiss()
                     }
@@ -112,18 +112,25 @@ class LoginFragment : BaseFragment() {
                             navigationUtil.navigateToMovieListingFragment(requireActivity())
                         }
 
-                        return@observe
+                        return@collect
                     }
 
                     if (loginUiState.errorSection != null) {
 
                         loginUiState.errorType?.let {
 
-                            showWarningMessage(
-                                messageUtil,
-                                notificationUtil, loginUiState.errorSection, loginUiState.errorType
-                            )
+                            if (loginUiState.errorSection == ErrorSection.CONNECTIVITY){
+                                showNoConnectivityMessage(messageUtil,notificationUtil)
+                            }else{
 
+                                showWarningMessage(
+                                    messageUtil,
+                                    notificationUtil, loginUiState.errorSection, loginUiState.errorType
+                                )
+
+                            }
+
+                            loginViewModel.resetErrorState()
                         }
                     }
 
@@ -150,18 +157,22 @@ class LoginFragment : BaseFragment() {
     private fun handleForgotPasswordClick() {
 
         binding.txtForgotPasswordLbl.setOnClickListener() {
+
             showWarningMessage(
                 messageUtil,
                 notificationUtil,
+
                 TaskResult.Error(
                     ErrorSection.NOT_IMPLEMENTED_FEATURE,
                     ErrorType.NOT_IMPLEMENTED_FEATURE
                 )
+
             )
         }
     }
 
     private fun handleSignUpOptionClick() {
+
         binding.tvSignupLbl.setOnClickListener() {
 
             if (!requireActivity().isFinishing && isAdded) {

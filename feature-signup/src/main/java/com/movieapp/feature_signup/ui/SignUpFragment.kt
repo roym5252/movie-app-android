@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.movieapp.core.ui.BaseFragment
 import com.movieapp.core.util.CommonUtil
+import com.movieapp.core.util.ErrorSection
 import com.movieapp.core.util.MessageUtil
 import com.movieapp.core.util.NotificationUtil
 import com.movieapp.core.util.NavigationUtil
@@ -111,13 +112,11 @@ class SignUpFragment : BaseFragment() {
 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
 
-                signUpViewModel.sigUpUiState.observe(viewLifecycleOwner) { uiState ->
-
-                    val signUpUiState = uiState.getContentIfNotHandled() ?: return@observe
+                signUpViewModel.sigUpUiState.collect{ signUpUiState ->
 
                     if (signUpUiState.isLoading) {
                         progressDialog.show()
-                        return@observe
+                        return@collect
                     } else {
                         progressDialog.dismiss()
                     }
@@ -128,18 +127,25 @@ class SignUpFragment : BaseFragment() {
                             navigationUtil.navigateToMovieListingFragment(requireActivity())
                         }
 
-                        return@observe
+                        return@collect
                     }
 
                     if (signUpUiState.errorSection != null) {
 
                         signUpUiState.errorType?.let {
 
-                            showWarningMessage(
-                                messageUtil,
-                                notificationUtil, signUpUiState.errorSection, signUpUiState.errorType
-                            )
+                            if (signUpUiState.errorSection == ErrorSection.CONNECTIVITY){
+                                showNoConnectivityMessage(messageUtil,notificationUtil)
+                            }else{
 
+                                showWarningMessage(
+                                    messageUtil,
+                                    notificationUtil, signUpUiState.errorSection, signUpUiState.errorType
+                                )
+                            }
+
+
+                            signUpViewModel.resetErrorState()
                         }
                     }
 
