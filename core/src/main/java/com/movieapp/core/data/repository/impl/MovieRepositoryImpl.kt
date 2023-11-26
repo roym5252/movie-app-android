@@ -31,9 +31,13 @@ class MovieRepositoryImpl @Inject constructor(
 
             body?.let { _ ->
 
-                return MovieSearchResult(body.remoteMovies.map {
-                    Movie.fromRemoteMovie(it)
-                }, body.totalResults.toInt())
+                if (body.remoteMovies!=null&&body.totalResults!=null){
+                    return MovieSearchResult(body.remoteMovies.map {
+                        Movie.fromRemoteMovie(it)
+                    }, body.totalResults.toInt())
+                }
+
+                return null
 
             } ?: kotlin.run {
                 return null

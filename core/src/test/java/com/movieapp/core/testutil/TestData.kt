@@ -1,4 +1,4 @@
-package com.movieapp.androidassestment.testutil
+package com.movieapp.core.testutil
 
 data class TestLoginCredential(val email: String, val password: String)
 

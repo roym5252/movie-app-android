@@ -1,8 +1,8 @@
-package com.movieapp.androidassestment.test.domain
+package com.movieapp.core.test.domain
 
-import com.movieapp.androidassestment.testutil.passwordValidationTestData
 import com.movieapp.core.data.validator.impl.PasswordValidator
 import com.movieapp.core.domain.ValidatePasswordUseCase
+import com.movieapp.core.testutil.passwordValidationTestData
 import com.movieapp.core.util.TaskResult
 import org.junit.Assert.assertEquals
 import org.junit.Before

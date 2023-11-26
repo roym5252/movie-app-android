@@ -10,6 +10,7 @@
     android:fitsSystemWindows="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clLogin"
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
@@ -42,7 +43,7 @@
             app:layout_constraintGuide_percent="0.98" />
 
         <TextView
-            android:id="@+id/tv_login_lbl"
+            android:id="@+id/tv_login_label"
             style="@style/TextView.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

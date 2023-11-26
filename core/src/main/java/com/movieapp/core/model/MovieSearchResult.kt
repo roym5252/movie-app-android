@@ -8,13 +8,18 @@ data class MovieSearchResult(
 ) {
     companion object {
 
-        fun fromRemoteResult(remoteMovieSearchResult: RemoteMovieSearchResult): MovieSearchResult {
+        fun fromRemoteResult(remoteMovieSearchResult: RemoteMovieSearchResult): MovieSearchResult? {
 
-            return MovieSearchResult(remoteMovieSearchResult.remoteMovies.map {
-                Movie.fromRemoteMovie(
-                    it
-                )
-            }, remoteMovieSearchResult.totalResults.toInt())
+            if (remoteMovieSearchResult.remoteMovies != null && remoteMovieSearchResult.totalResults != null) {
+
+                return MovieSearchResult(remoteMovieSearchResult.remoteMovies.map {
+                    Movie.fromRemoteMovie(
+                        it
+                    )
+                }, remoteMovieSearchResult.totalResults.toInt())
+            }
+
+            return null
         }
     }
 }

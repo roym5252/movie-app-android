@@ -47,7 +47,36 @@ dependencies {
     implementation libs.material
     implementation libs.spots.dialog
     implementation libs.hilt.android
+    implementation libs.androidx.junit.ktx
     kapt(libs.hilt.compiler)
 
+    debugImplementation libs.leakcanary.android
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+    testImplementation libs.junit4
+    testImplementation libs.junit.jupiter.params
+    testImplementation libs.mockito.kotlin
+    testImplementation (libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockwebserver)
+    testImplementation libs.robolectric
+    debugImplementation(libs.androidx.fragment.testing)
+    testImplementation(libs.androidx.fragment.ktx)
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.androidx.rules)
+    testImplementation(libs.androidx.runner)
+    testImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.hilt.android.testing)
+    kaptTest(libs.hilt.compiler)
+    testAnnotationProcessor(libs.hilt.compiler)
+
     implementation(project(":core"))
+    testImplementation(project(":core"))
+}
+
+hilt {
+    enableTransformForLocalTests = true
+}
+
+kapt {
+    correctErrorTypes true
 }

@@ -4,9 +4,13 @@
 compileSdk = "34"
 
 # @keep
+core = "1.5.0"
+fragmentTesting = "1.6.2"
 minSdk = "24"
 
 # @keep
+robolectric = "4.11.1"
+runner = "1.5.2"
 targetSdk = "33"
 
 appcompat = "1.6.1"
@@ -45,6 +49,12 @@ moshi = "1.14.0"
 retrofit2ConverterMoshi="2.9.0"
 
 [libraries]
+androidx-core = { module = "androidx.test:core", version.ref = "core" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentTesting" }
+androidx-fragment-testing = { module = "androidx.fragment:fragment-testing", version.ref = "fragmentTesting" }
+androidx-rules = { module = "androidx.test:rules", version.ref = "core" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltVersion" }
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
 android-spinKit = { module = "com.github.ybq:Android-SpinKit", version.ref = "androidSpinkit" }
 androidx-appcompat={module = "androidx.appcompat:appcompat",version.ref="appcompat"}
@@ -75,12 +85,14 @@ mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "
 mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockwebserver" }
 picasso2-okhttp3-downloader = { module = "com.jakewharton.picasso:picasso2-okhttp3-downloader", version.ref = "picasso2Okhttp3Downloader" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 spots-dialog = { module = "com.github.d-max:spots-dialog", version.ref = "spotsDialog" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref="moshi"}
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref="moshi"}
 retrofit2-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref="retrofit2ConverterMoshi"}
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version = "2.2.0" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version = "1.1.5" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

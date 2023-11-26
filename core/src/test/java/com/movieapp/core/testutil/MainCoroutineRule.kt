@@ -1,4 +1,4 @@
-package com.movieapp.androidassestment.testutil
+package com.movieapp.core.testutil
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

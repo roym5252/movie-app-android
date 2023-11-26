@@ -1,19 +1,18 @@
-package com.movieapp.androidassestment.test.domain
+package com.movieapp.core.test.domain
 
 import android.app.Application
-import com.movieapp.androidassestment.testutil.MainCoroutineRule
-import com.movieapp.androidassestment.testutil.TestLoginCredential
-import com.movieapp.androidassestment.testutil.loginTestData
 import com.movieapp.core.data.datasource.local.LocalDataSourceManagerImpl
 import com.movieapp.core.data.repository.impl.UserRepositoryImpl
 import com.movieapp.core.data.validator.impl.PasswordValidator
 import com.movieapp.core.domain.UserLoginUseCase
 import com.movieapp.core.domain.ValidateEmailUseCase
 import com.movieapp.core.domain.ValidatePasswordUseCase
+import com.movieapp.core.testutil.MainCoroutineRule
+import com.movieapp.core.testutil.TestLoginCredential
+import com.movieapp.core.testutil.loginTestData
 import com.movieapp.core.util.CommonUtil
 import com.movieapp.core.util.PrefUtil
 import com.movieapp.core.util.TaskResult
-import com.movieapp.feature_login.ui.LoginViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -63,7 +62,6 @@ class UserLoginUseCaseTest(private val input: TestLoginCredential, private val e
 
     private lateinit var userRepository: UserRepositoryImpl
     private lateinit var validatePasswordUseCase: ValidatePasswordUseCase
-    private lateinit var loginViewModel: LoginViewModel
 
     @Before
     fun setUp() {
@@ -72,11 +70,6 @@ class UserLoginUseCaseTest(private val input: TestLoginCredential, private val e
 
         userRepository = UserRepositoryImpl(dataSourceManager, prefUtil)
         validatePasswordUseCase = ValidatePasswordUseCase(PasswordValidator())
-
-        loginViewModel = LoginViewModel(
-            application, commonUtil, validateEmailUseCase,
-            validatePasswordUseCase, UserLoginUseCase(userRepository)
-        )
 
         Mockito.`when`(commonUtil.checkNetworkConnectivity(application)).thenReturn(TaskResult.Success(true))
         doNothing().`when`(prefUtil).saveBoolean(anyString(), Mockito.anyBoolean())
