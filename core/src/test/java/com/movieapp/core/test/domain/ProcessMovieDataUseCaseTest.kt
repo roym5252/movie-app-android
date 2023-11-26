@@ -1,6 +1,5 @@
-package com.movieapp.androidassestment.test.domain
+package com.movieapp.core.test.domain
 
-import com.movieapp.androidassestment.testutil.MainCoroutineRule
 import com.movieapp.core.data.datasource.remote.APIInterface
 import com.movieapp.core.data.model.MoviePageCalculationResult
 import com.movieapp.core.data.repository.MovieRepository
@@ -8,6 +7,7 @@ import com.movieapp.core.data.repository.impl.MovieRepositoryImpl
 import com.movieapp.core.domain.ProcessMovieDataUseCase
 import com.movieapp.core.model.Movie
 import com.movieapp.core.model.MovieSearchResult
+import com.movieapp.core.testutil.MainCoroutineRule
 import com.movieapp.core.util.PrefUtil
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert

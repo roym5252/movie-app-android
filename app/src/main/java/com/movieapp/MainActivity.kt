@@ -19,16 +19,6 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var navigationUtil: NavigationUtil
 
-
-    companion object {
-
-        init {
-            System.loadLibrary("keys")
-        }
-    }
-
-    private external fun getApiKey(): String
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]

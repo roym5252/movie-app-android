@@ -10,10 +10,10 @@ import com.squareup.moshi.JsonClass
 data class RemoteMovieSearchResult(
 
     @Json(name="Search")
-    val remoteMovies: List<RemoteMovie>,
+    val remoteMovies: List<RemoteMovie>?,
 
     @Json(name="totalResults")
-    val totalResults: String,
+    val totalResults: String?,
 
     @Json(name="Response")
-    val response: String)
+    val response: String?)
