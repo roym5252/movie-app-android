@@ -28,6 +28,8 @@ This structure also makes it easy to convert the project to a multi-module proje
 
 ## **Technologies:**
 
+* Hilt
+  
 * ViewModel
 
 * Coroutines
@@ -39,12 +41,6 @@ This structure also makes it easy to convert the project to a multi-module proje
 * OkHttp
 
 * HttpInterceptor
-
-* Hilt
-
-* Mockito
-
-* MockWebServer
 
 * Glide
 
@@ -63,3 +59,7 @@ This structure also makes it easy to convert the project to a multi-module proje
 * Robolectric
   
 * AndroidX Test
+
+* Mockito
+
+* MockWebServer
