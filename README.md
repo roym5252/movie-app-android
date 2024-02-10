@@ -73,6 +73,6 @@ This structure also makes it easy to convert the project to a multi-module proje
 
   app/src/main/jni/keys.c
   
-- Replace <ADD API KEY HERE> with API generated from www.omdbapi.com 
+- Replace ‘ADD API KEY HERE’ with API key generated from 'www.omdbapi.com' in the below line.
 
-  return (*env)-> NewStringUTF(env, "<ADD API KEY HERE>");
+  return (*env)-> NewStringUTF(env, "ADD API KEY HERE");
