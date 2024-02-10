@@ -66,3 +66,13 @@ This structure also makes it easy to convert the project to a multi-module proje
 * Mockito
 
 * MockWebServer
+
+## API key configuration
+
+- Open keys.c in the below path:
+
+  app/src/main/jni/keys.c
+  
+- Replace <ADD API KEY HERE> with API generated from www.omdbapi.com 
+
+  return (*env)-> NewStringUTF(env, "<ADD API KEY HERE>");
